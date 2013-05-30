@@ -41,6 +41,16 @@ def sim_pearson(prefs, person1, person2):
     return num / den
 
 
+def tanimoto_distance(prefs, set1, set2):
+    a, b, c = len(set1), len(set2), 0
+
+    for it in set1:
+        if it in set2:
+            c += 1
+
+    return float(c) / (a + b - c)
+
+
 def top_matches(prefs, person, n=5, similarity=sim_pearson):
     scores = [(similarity(prefs, person, other), other) for other in prefs if other != person]
 
@@ -49,7 +59,7 @@ def top_matches(prefs, person, n=5, similarity=sim_pearson):
     return scores[0:n]
 
 
-def get_recomendation(prefs, person, similarity=sim_pearson):
+def get_recommendation(prefs, person, similarity=sim_pearson):
     totals = {}
     sim_sums = {}
     for other in prefs:
@@ -68,3 +78,14 @@ def get_recomendation(prefs, person, similarity=sim_pearson):
     rankings.sort()
     rankings.reverse()
     return rankings
+
+
+def transform_prefs(prefs):
+    result = {}
+
+    for person in prefs:
+        for item in prefs[person]:
+            result.setdefault(item, {})
+            result[item][person] = prefs[person][item]
+
+    return result
