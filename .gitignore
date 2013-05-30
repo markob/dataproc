@@ -35,4 +35,7 @@ nosetests.xml
 .pydevproject
 
 # Python virtual environment directory
-pyint/*
+pyint
+
+# PyCharm stuff
+.idea
