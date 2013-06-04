@@ -10,4 +10,3 @@ if __name__ == '__main__':
     print usr
     print stat.get_top_matches(usr)
     print stat.get_recommendations(usr)
-
