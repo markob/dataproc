@@ -1,12 +1,17 @@
-from sdproc import delicious
-import random
+from numerati import colabfilt
+from numerati import filtdata
+from numerati import recommender
 
 if __name__ == '__main__':
-    stat = delicious.DeliciousStat('linux')
+    print(colabfilt.recommend('Angelica', filtdata.users))
 
-    usr_list = stat.get_usr_list()
-    usr = usr_list[random.randint(0, len(usr_list) - 1)]
+    print(colabfilt.pearson(filtdata.users['Angelica'], filtdata.users['Bill']))
+    print(colabfilt.pearson(filtdata.users['Angelica'], filtdata.users['Hailey']))
+    print(colabfilt.pearson(filtdata.users['Angelica'], filtdata.users['Jordyn']))
 
-    print usr
-    print stat.get_top_matches(usr)
-    print stat.get_recommendations(usr)
+    r = recommender.recommender(filtdata.users)
+    print(r.recommend('Jordyn'))
+
+    r.loadBookDB('data/BX-Dump/')
+    r.recommend('171118')
+    r.userRatings('171118', 5)
